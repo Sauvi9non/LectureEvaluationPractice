@@ -151,7 +151,6 @@
 	</section>
 	
 	
-	
 <!-- 등록하기 -->
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 		<div class="modal-dialog">
