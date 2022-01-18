@@ -288,7 +288,7 @@
 			</div>
 		</div>
 	</div>
-	
+	 
 	<footer class="bg-dark mt-4 p-5 text-center" style="color: #ffffff;">
 		Copyright &copy; 저작권표시하는부분이어요. 유튜브 동빈나 참고
 	</footer>
