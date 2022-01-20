@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import ="user.UserDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +16,33 @@
 
 </head>
 <body>
+<%
+	String userID = null;
+	if(session.getAttribute("userID") != null){
+		userID = (String) session.getAttribute("userID");
+		
+	}
+	if(userID == null){
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('로그인해주세요.')");
+			script.println("history.back();");
+			script.println("location.href='userLoginAction.jsp';");
+			script.close();
+			return;
+	}
+	
+	boolean emailChecked = new UserDAO().getUserEmailChecked(userID);
+	
+	if(emailChecked == false) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>>");
+		script.println("location.href='emailSendConfirm.jsp'");
+		script.println("/<script>");
+		script.close();
+	}
+%>
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="index.jsp">강의평가 웹사이트</a> <!-- navbar-brand는 로고같은거 넣을 때 쓰는... -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -27,9 +56,19 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown">	회원관리</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
-						<a class="dropdown-item" href="userLogin.jsp">로그인</a>
+<%
+	if (userID == null) {
+		
+		%>
+
+		<a class="dropdown-item" href="userLogin.jsp">로그인</a>
+		<a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+
+<%
+	} else { 
+%>			
 						<a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
-						<a class="dropdown-item" href="userJoin.jsp">회원가입</a>
+<% } %>
 					</div>
 				</li>
 			</ul>
