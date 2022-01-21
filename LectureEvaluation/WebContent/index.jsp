@@ -18,18 +18,20 @@
 </head>
 <body>
 
+
 <%
 	String userID = null;
 	if(session.getAttribute("userID") != null){
 		userID = (String) session.getAttribute("userID");
 		
 	}
+	
 	if(userID == null){
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('로그인해주세요.');");
-			script.println("history.back();");
-			script.println("location.href='userLoginAction.jsp'");
+			//script.println("history.back();");
+			script.println("location.href='userLogin.jsp'");
 			script.println("</script>");
 			script.close();
 			return;
@@ -48,6 +50,7 @@
 
 
 
+
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="index.jsp">강의평가 웹사이트</a> <!-- navbar-brand는 로고같은거 넣을 때 쓰는... -->
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar">
@@ -61,14 +64,13 @@
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown">	회원관리</a>
 					<div class="dropdown-menu" aria-labelledby="dropdown">
-
+					<% if (userID == null) {%>
 					<a class="dropdown-item" href="userLogin.jsp">로그인</a>
-		
 					<a class="dropdown-item" href="userJoin.jsp">회원가입</a>
-
-			
+					<% } %>
+					<% if (userID != null) { %>
 					<a class="dropdown-item" href="userLogout.jsp">로그아웃</a>
-
+					<% } %>
 					</div>
 				</li>
 			</ul>
@@ -205,19 +207,19 @@
 								<div class="form-row">
 									<div class="form-group col-sm-6">
 										<label>강의명</label>
-										<input type="text" name="LectureName" class="form-control" maxlength="20">
+										<input type="text" name="lectureName" class="form-control" maxlength="20">
 										
 									</div>
 									<div class="form-group col-sm-6">
 										<label>교수명</label>
-										<input type="text" name="ProfessorName" class="form-control" maxlength="20">
+										<input type="text" name="professorName" class="form-control" maxlength="20">
 										
 									</div>
 								</div>
 								<div class="form-row">
 									<div class="form-group col-sm-4">
 										<label>수강연도</label>
-										<select name="LectureYear" class="form-control">
+										<select name="lectureYear" class="form-control">
 											<option value="2014">2014</option>
 											<option value="2015">2015</option>
 											<option value="2016">2016</option>
@@ -240,7 +242,7 @@
 									</div>
 									<div class="form-group col-sm-4">
 										<label>강의구분</label>
-										<select name="LectureDivide" class="form-control">
+										<select name="lectureDivide" class="form-control">
 											<option value="전공" selected>전공</option>
 											<option value="교양">교양</option>
 											<option value="기타">기타</option>
@@ -259,7 +261,7 @@
 								<div class="form-row">
 								<div class="form-group col-sm-3">
 									<label>성적</label>
-										<select name="totalScore" class="form-control">
+										<select name="creditScore" class="form-control">
 											<option value="A" selected>A</option>
 											<option value="B">B</option>
 											<option value="C">C</option>
@@ -269,7 +271,7 @@
 									</div>
 									<div class="form-group col-sm-3">
 									<label>강의</label>
-										<select name="totalScore" class="form-control">
+										<select name="lectureScore" class="form-control">
 											<option value="A" selected>A</option>
 											<option value="B">B</option>
 											<option value="C">C</option>
