@@ -28,6 +28,7 @@
 	String searchType = "최신순";
 	String search = "";
 	int pageNumber = 0;
+	
 	if(request.getParameter("lectureDivide") != null) {
 		lectureDivide = request.getParameter("lectureDivide");
 	}
@@ -73,9 +74,6 @@
 		script.close();
 	}
 %>
-
-
-
 
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="index.jsp">강의평가 웹사이트</a> <!-- navbar-brand는 로고같은거 넣을 때 쓰는... -->
@@ -132,11 +130,8 @@
 	if(evaluationList != null) {
 		for(int i =0;i<evaluationList.size();i++){
 			if(i==5) break;
-			EvaluationDTO evaluation = evaluation.get(i);
-
+			EvaluationDTO evaluation = evaluationList.get(i);
 %>
-
-
 		<div class="card bg-light mt-3">
 		<div class="card-header bg-light">
 			<div class="row">
@@ -186,11 +181,33 @@
 	<a class="page-link" href="./index.jsp?lectureDivide=<%= URLEncoder.encode(lectureDivide, "utf-8") %>&searchType=
 	<%= URLEncoder.encode(searchType, "utf-8") %>&search=<%= URLEncoder.encode(search, "utf-8") %>&pageNumber=
 	<%= pageNumber - 1 %>">이전</a>
-	</ul>
+	
 	
 <%
 	}
 %>
+
+	</li>
+	<li>
+<%
+		if(evaluationList.size() < 6) {
+%>
+			<a class="page-link disabled">다음</a>
+<%
+		} else {
+%>
+
+	<a class="page-link" href="./index.jsp?lectureDivide=<%= URLEncoder.encode(lectureDivide, "utf-8") %>&searchType=
+	<%= URLEncoder.encode(searchType, "utf-8") %>&search=<%= URLEncoder.encode(search, "utf-8") %>&pageNumber=
+	<%= pageNumber + 1 %>">다음</a>
+	
+	
+<%
+	}
+%>
+	 </li>
+</ul>
+
 <!-- 등록하기 -->
 	<div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
 		<div class="modal-dialog">
